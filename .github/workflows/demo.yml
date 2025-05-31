@@ -16,6 +16,9 @@ jobs:
         with:
           dotnet-version: 10.x
 
+      - run: echo "SELECTED_COLOR=green" >> "$GITHUB_OUTPUT"
+        id: color-selector
+
       - name: Print build info
         run: dotnet run PrintBuildInfo.cs
         working-directory: ${{ github.workspace }}/.github/workflows/scripts
@@ -42,6 +45,9 @@ jobs:
 
       - name: Print todo title
         env:
+          SELECTED_COLOR: ${{ steps.color-selector.outputs.SELECTED_COLOR }}
           TODO_TITLE: ${{ steps.fetch-todo.outputs.TODO_TITLE }}
-        run: echo "$TODO_TITLE"
+        run: |
+          echo "$SELECTED_COLOR"
+          echo "$TODO_TITLE"
       
