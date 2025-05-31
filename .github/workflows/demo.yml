@@ -25,13 +25,22 @@ jobs:
         run: |
           cat <<EOL > FetchTodo.cs
           using System.Net.Http.Json;
-          HttpClient httpClient = new();
-          Todo? todo = await httpClient.GetFromJsonAsync<Todo>("https://jsonplaceholder.typicode.com/todos/1");
-          Console.WriteLine($"::set-output name=title::{todo.Title}");
+
+          HttpClient apiClient = new() { BaseAddress = new("https://jsonplaceholder.typicode.com/") };
+          Todo? todo = await apiClient.GetFromJsonAsync<Todo>("todos/1");
+          SetGitHubOutput("TODO_TITLE", todo?.Title);
+
+          static void SetGitHubOutput(string key, string? value)
+          {
+              string? output = Environment.GetEnvironmentVariable("GITHUB_OUTPUT");
+              if (output is null) output = $"{key}={value}"; else output += $"\n{key}={value}";
+              Environment.SetEnvironmentVariable("GITHUB_OUTPUT", output);
+          }
+
           record Todo(int UserId, int Id, string Title, bool Completed);
           EOL
           dotnet run FetchTodo.cs
 
       - name: Print todo title
-        run: echo ${{ steps.fetch-todo.outputs.title }}
+        run: echo ${{ steps.fetch-todo.outputs.TODO_TITLE }}
       
