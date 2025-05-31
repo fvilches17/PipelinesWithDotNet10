@@ -23,8 +23,8 @@ jobs:
       - run: |
           cat <<EOL > FetchTodo.cs
           using System.Net.Http.Json;
-          HttpClient client = new();
-          Todo? todo = await client.GetFromJsonAsync<Todo>("https://jsonplaceholder.typicode.com/todos/1");
+          HttpClient httpClient = new();
+          Todo? todo = await httpClient.GetFromJsonAsync<Todo>("https://jsonplaceholder.typicode.com/todos/1");
           Console.WriteLine(todo);
           record Todo(int UserId, int Id, string Title, bool Completed);
           EOL
