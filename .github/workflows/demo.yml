@@ -32,7 +32,7 @@ jobs:
 
           static void SetGitHubOutput(string key, string? value)
           {
-              string? output = Environment.GetEnvironmentVariable("GITHUB_OUTPUT", EnvironmentVariableTarget.Process);
+              string? output = Environment.GetEnvironmentVariable("GITHUB_OUTPUT", EnvironmentVariableTarget.Machine);
               if (output is null) output = $"{key}={value}"; else output += $"\n{key}={value}";
               Environment.SetEnvironmentVariable("GITHUB_OUTPUT", output);
           }
