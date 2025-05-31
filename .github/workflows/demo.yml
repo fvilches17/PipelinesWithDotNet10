@@ -16,8 +16,9 @@ jobs:
         with:
           dotnet-version: 10.x
 
-      - run: dotnet run ./scripts/PrintBuildInfo.cs
+      - run: dotnet run PrintBuildInfo.cs
         name: Print build info
+        working-directory: ${{ github.workspace }}/.github/workflows/scripts
 
       - run: |
           cat <<EOL > FetchTodo.cs
