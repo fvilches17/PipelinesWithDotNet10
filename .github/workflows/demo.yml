@@ -32,8 +32,8 @@ jobs:
 
           static void SetGitHubOutput(string key, string? value)
           {
-              string outputFilePath = Environment.GetEnvironmentVariable("GITHUB_OUTPUT")!;
-              File.AppendAllText(outputFilePath, $"{key}={value}\n");
+            string outputFilePath = Environment.GetEnvironmentVariable("GITHUB_OUTPUT")!;
+            File.AppendAllText(outputFilePath, $"{key}={value}\n");
           }
 
           record Todo(int UserId, int Id, string Title, bool Completed);
