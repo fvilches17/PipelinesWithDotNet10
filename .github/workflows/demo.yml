@@ -16,10 +16,6 @@ jobs:
         with:
           dotnet-version: 10.x
 
-      - run: echo "SELECTED_COLOR=green" >> "$GITHUB_OUTPUT"
-        id: color-selector
-          
-
       - name: Print build info
         run: dotnet run PrintBuildInfo.cs
         working-directory: ${{ github.workspace }}/.github/workflows/scripts
@@ -30,17 +26,14 @@ jobs:
           cat <<EOL > FetchTodo.cs
           using System.Net.Http.Json;
 
-          Console.WriteLine($"GH output: {Environment.GetEnvironmentVariable("GITHUB_OUTPUT")}");
-
           HttpClient apiClient = new() { BaseAddress = new("https://jsonplaceholder.typicode.com/") };
           Todo? todo = await apiClient.GetFromJsonAsync<Todo>("todos/1");
           SetGitHubOutput("TODO_TITLE", todo?.Title);
 
           static void SetGitHubOutput(string key, string? value)
           {
-            string? output = Environment.GetEnvironmentVariable("GITHUB_OUTPUT");
-            if (output is null) output = $"{key}={value}"; else output += $"\n{key}={value}";
-            Environment.SetEnvironmentVariable("GITHUB_OUTPUT", output);
+              string outputFilePath = Environment.GetEnvironmentVariable("GITHUB_OUTPUT")!;
+              File.AppendAllText(outputFilePath, $"{key}={value}\n");
           }
 
           record Todo(int UserId, int Id, string Title, bool Completed);
