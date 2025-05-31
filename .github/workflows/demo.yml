@@ -10,4 +10,20 @@ jobs:
   run:
     runs-on: ubuntu-latest
     steps:
-      - run: echo hello
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.x
+
+      - run: |
+          cat <<EOL > FetchTodo.cs
+          using System.Net.Http.Json;
+          HttpClient client = new();
+          Todo? todo = await client.GetFromJsonAsync<Todo>("https://jsonplaceholder.typicode.com/todos/1");
+          Console.WriteLine(todo);
+          record Todo(int UserId, int Id, string Title, bool Completed);
+          EOL
+          dotnet run FetchTodo.cs
+        name: Fetch TODO
+      
