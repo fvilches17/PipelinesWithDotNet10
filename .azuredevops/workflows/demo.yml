@@ -17,8 +17,11 @@ steps:
       using System.Net.Http.Json;
       HttpClient client = new();
       Todo? todo = await client.GetFromJsonAsync<Todo>("https://jsonplaceholder.typicode.com/todos/1");
-      Console.WriteLine(todo);
+      Console.WriteLine($"##vso[task.setvariable variable=TodoTitle;]{todo?.Title}");
       record Todo(int UserId, int Id, string Title, bool Completed);
       EOL
       dotnet run FetchTodo.cs
-    displayName: Fetch TODO
+    displayName: Fetch todo
+
+  - script: echo "$(TodoTitle)"
+    displayName: Print todo title
