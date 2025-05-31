@@ -16,6 +16,9 @@ jobs:
         with:
           dotnet-version: 10.x
 
+      - run: dotnet run scripts/PrintBuildInfo.cs
+        name: Print build info
+
       - run: |
           cat <<EOL > FetchTodo.cs
           using System.Net.Http.Json;
