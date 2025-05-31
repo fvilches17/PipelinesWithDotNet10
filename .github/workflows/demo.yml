@@ -28,7 +28,7 @@ jobs:
 
           HttpClient apiClient = new() { BaseAddress = new("https://jsonplaceholder.typicode.com/") };
           Todo? todo = await apiClient.GetFromJsonAsync<Todo>("todos/1");
-          SetGitHubOutput("TODO_TITLE", todo?.Title);
+          SetGitHubOutput("TODO_TITLE", "Fred");
 
           static void SetGitHubOutput(string key, string? value)
           {
