@@ -7,7 +7,7 @@ long scriptStartTime = Stopwatch.GetTimestamp();
 
 PrintPipelineVar("GITHUB_RUN_NUMBER");
 PrintPipelineVar("GITHUB_REPOSITORY");
-PrintPipelineVar("GITHUB_HEAD_REF");
+PrintPipelineVar("GITHUB_REF");
 
 string scriptExecutionTime = Stopwatch.GetElapsedTime(scriptStartTime).Humanize();
 Console.WriteLine($"::debug::Script execution time: {scriptExecutionTime}");
