@@ -42,5 +42,7 @@ jobs:
           dotnet run FetchTodo.cs
 
       - name: Print todo title
-        run: echo ${{ steps.fetch-todo.outputs.TODO_TITLE }}
+        env:
+          TODO_TITLE: ${{ steps.fetch-todo.outputs.TODO_TITLE }}
+        run: echo "$TODO_TITLE"
       
