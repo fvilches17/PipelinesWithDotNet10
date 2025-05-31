@@ -16,18 +16,22 @@ jobs:
         with:
           dotnet-version: 10.x
 
-      - run: dotnet run PrintBuildInfo.cs
-        name: Print build info
+      - name: Print build info
+        run: dotnet run PrintBuildInfo.cs
         working-directory: ${{ github.workspace }}/.github/workflows/scripts
 
-      - run: |
+      - name: Fetch todo
+        id: fetch-todo
+        run: |
           cat <<EOL > FetchTodo.cs
           using System.Net.Http.Json;
           HttpClient httpClient = new();
           Todo? todo = await httpClient.GetFromJsonAsync<Todo>("https://jsonplaceholder.typicode.com/todos/1");
-          Console.WriteLine(todo);
+          Console.WriteLine($"::set-output name=title::{todo.Title}");
           record Todo(int UserId, int Id, string Title, bool Completed);
           EOL
           dotnet run FetchTodo.cs
-        name: Fetch todo
+
+      - name: Print todo title
+        run: echo ${{ steps.fetch-todo.outputs.title }}
       
