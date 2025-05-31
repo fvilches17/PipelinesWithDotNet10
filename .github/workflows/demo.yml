@@ -32,9 +32,10 @@ jobs:
 
           static void SetGitHubOutput(string key, string? value)
           {
-              string? output = Environment.GetEnvironmentVariable("GITHUB_OUTPUT");
-              if (output is null) output = $"{key}={value}"; else output += $"\n{key}={value}";
-              Environment.SetEnvironmentVariable("GITHUB_OUTPUT", output, EnvironmentVariableTarget.Process);
+              //string? output = Environment.GetEnvironmentVariable("GITHUB_OUTPUT");
+              //if (output is null) output = $"{key}={value}"; else output += $"\n{key}={value}";
+              //Environment.SetEnvironmentVariable("GITHUB_OUTPUT", output);
+              Environment.SetEnvironmentVariable("GITHUB_OUTPUT", "TODO_TITLE=yolo");
           }
 
           record Todo(int UserId, int Id, string Title, bool Completed);
