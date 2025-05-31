@@ -1,0 +1,24 @@
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+  - task: UseDotNet@2
+    displayName: Install .NET
+    inputs:
+      packageType: sdk
+      version: 10.x
+      includePreviewVersions: true
+
+  - script: dotnet run scripts/PrintBuildInfo.cs
+    displayName: Print build info
+
+  - script: |
+      cat <<EOL > FetchTodo.cs
+      using System.Net.Http.Json;
+      HttpClient client = new();
+      Todo? todo = await client.GetFromJsonAsync<Todo>("https://jsonplaceholder.typicode.com/todos/1");
+      Console.WriteLine(todo);
+      record Todo(int UserId, int Id, string Title, bool Completed);
+      EOL
+      dotnet run FetchTodo.cs
+    displayName: Fetch TODO
