@@ -10,6 +10,9 @@ PrintPipelineVar("Build.Repository.Name");
 PrintPipelineVar("Build.SourceBranch");
 
 string scriptExecutionTime = Stopwatch.GetElapsedTime(scriptStartTime).Humanize();
+
+// Print additional info if pipeline job running in debug mode.
+// https://learn.microsoft.com/en-us/azure/devops/pipelines/scripts/logging-commands
 Console.WriteLine($"##[debug] Script execution time: {scriptExecutionTime}");
 
 static void PrintPipelineVar(string varName)
