@@ -1,4 +1,4 @@
-#:package Humanizer@2.14.1
+#:package Humanizer@2.14.*
 
 using Humanizer;
 using System.Diagnostics;
