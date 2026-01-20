@@ -28,7 +28,12 @@ $SkipPatterns = @(
     '^hotfix/',
     '^datafix/',
     '^develop$'
-) + $AdditionalSkipPatterns
+)
+
+if ($AdditionalSkipPatterns.Count -gt 0) {
+    Write-Host "Concatenating patterns"
+    $SkipPatterns = $SkipPatterns + $AdditionalSkipPatterns
+}
 
 # Print all skip patterns to the console
 Write-Host "Skip Patterns:"
