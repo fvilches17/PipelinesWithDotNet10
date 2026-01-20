@@ -35,7 +35,7 @@ on:
           - '^develop$'  
           Default is empty (no additional patterns).
         required: false
-        default: ''
+        default: ""
 
 jobs:
   say-hello:
