@@ -7,6 +7,10 @@ on:
         type: string
         description: Person name
         required: true
+      lucky-num:
+        type: number
+        description: Lucky number
+        required: true
 
 jobs:
   say-hello:
@@ -20,4 +24,6 @@ jobs:
       - name: Greet
         shell: pwsh
         run: |
-          fvilches17/PipelinesWithDotNet10/./.github/workflows/scripts/Greet.ps1 -Name "${{ inputs.name }}"
+          fvilches17/PipelinesWithDotNet10/./.github/workflows/scripts/Greet.ps1 `
+            -Name "${{ inputs.name }}" `
+            -LuckyNum ${{ inputs.lucky-num }}
