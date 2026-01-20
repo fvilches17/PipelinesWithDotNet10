@@ -6,7 +6,10 @@ param (
     [int]$LuckyNum,
 
     [Parameter(Mandatory = $true)]
-    [bool]$DryRun
+    [bool]$DryRun,
+
+    [Parameter(Mandatory = $false)]
+    [string[]]$AdditionalSkipPatterns = @()
 )
 
 Write-Host "Hello, $Name!."
@@ -17,3 +20,16 @@ if ($DryRun) {
 } else {
     Write-Host "Is not a dry run"
 }
+
+$SkipPatterns = @(
+    '^main$',
+    '^master$',
+    '^release/',
+    '^hotfix/',
+    '^datafix/',
+    '^develop$'
+) + $AdditionalSkipPatterns
+
+# Print all skip patterns to the console
+Write-Host "Skip Patterns:"
+$SkipPatterns | ForEach-Object { Write-Host " - $_" }
