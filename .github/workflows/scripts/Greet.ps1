@@ -33,3 +33,10 @@ $SkipPatterns = @(
 # Print all skip patterns to the console
 Write-Host "Skip Patterns:"
 $SkipPatterns | ForEach-Object { Write-Host " - $_" }
+
+# Print all skip patterns to the console
+Write-Host "Additional Patterns:"
+$AdditionalSkipPatterns | ForEach-Object { Write-Host " - $_" }
+
+Write-Host "Total items sp: $($SkipPatterns.Count)"
+Write-Host "Total items ap: $($AdditionalSkipPatterns.Count)"
