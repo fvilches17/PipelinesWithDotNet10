@@ -53,4 +53,4 @@ jobs:
             -Name "${{ inputs.name }}" `
             -LuckyNum ${{ inputs.lucky-num }} `
             -DryRun $${{ inputs.dry-run }} `
-            -AdditionalSkipPatterns (("${{ inputs.additional-skip-patterns }}" -split ",").Trim())
+            -AdditionalSkipPatterns (("${{ inputs.additional-skip-patterns }}" -split ",") | ForEach-Object { $_.Trim() } | Where-Object { -not [string]::IsNullOrWhiteSpace($_) })
