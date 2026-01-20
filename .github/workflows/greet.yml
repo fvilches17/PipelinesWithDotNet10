@@ -13,8 +13,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
+        with:
+          repository: fvilches17/PipelinesWithDotNet10
+          path: fvilches17/PipelinesWithDotNet10
       
       - name: Greet
         shell: pwsh
         run: |
-          ./.github/workflows/scripts/Greet.ps1 -Name "${{ inputs.name }}"
+          fvilches17/PipelinesWithDotNet10/./.github/workflows/scripts/Greet.ps1 -Name "${{ inputs.name }}"
