@@ -11,6 +11,16 @@ on:
         type: number
         description: Lucky number
         required: true
+      dry-run:
+        type: boolean
+        description: |
+          To run or not to run.  
+          Set to `true` if you're confident.  
+          Here's some code for fun:  
+          ```csharp
+          Console.WriteLine("Do it!");
+          ```
+        required: true
 
 jobs:
   say-hello:
@@ -26,4 +36,5 @@ jobs:
         run: |
           fvilches17/PipelinesWithDotNet10/./.github/workflows/scripts/Greet.ps1 `
             -Name "${{ inputs.name }}" `
-            -LuckyNum ${{ inputs.lucky-num }}
+            -LuckyNum ${{ inputs.lucky-num }} `
+            -DryRun ${{ inputs.dry-run }}
