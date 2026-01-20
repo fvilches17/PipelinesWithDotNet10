@@ -21,6 +21,21 @@ on:
           Console.WriteLine("Do it!");
           ```
         required: true
+      additional-skip-patterns:
+        type: string
+        description: |
+          Comma-separated list of additional branch name regex patterns to skip. Example: `^foo$,'^bar/'`  
+          In the example, branches named `foo` and any branches under the `bar/` prefix will be skipped.  
+          Note that these patterns are already skipped, regardless of this input:  
+          - '^main$'
+          - '^master$'
+          - '^release/'
+          - '^hotfix/'
+          - '^datafix/'
+          - '^develop$'  
+          Default is empty (no additional patterns).
+        required: false
+        default: ''
 
 jobs:
   say-hello:
@@ -37,4 +52,5 @@ jobs:
           fvilches17/PipelinesWithDotNet10/./.github/workflows/scripts/Greet.ps1 `
             -Name "${{ inputs.name }}" `
             -LuckyNum ${{ inputs.lucky-num }} `
-            -DryRun $${{ inputs.dry-run }}
+            -DryRun $${{ inputs.dry-run }} `
+            -AdditionalSkipPatterns (('${{ inputs.additional-skip-patterns }}' -split ',').Trim())
