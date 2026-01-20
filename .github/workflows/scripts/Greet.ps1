@@ -7,4 +7,4 @@ param (
 )
 
 Write-Host "Hello, $Name!."
-Write-Host "Luck num is $LuckNum"
+Write-Host "Luck num is $LuckyNum"
